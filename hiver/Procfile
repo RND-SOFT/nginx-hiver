@@ -1,0 +1,2 @@
+node: node index.js
+nginx: nginx
