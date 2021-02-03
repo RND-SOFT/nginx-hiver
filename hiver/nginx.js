@@ -22,6 +22,15 @@ export function generateConfig (results) {
     config += "  listen 80;\n";
     config += "  access_log /var/log/nginx/access.log vhost;\n";
     config += "  location / {\n";
+    config += "    proxy_http_version 1.1;\n";
+    config += "    proxy_set_header X-Real-IP  $remote_addr;\n";
+    config += "    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n";
+    config += "    proxy_set_header Host $http_host;\n";
+    config += "    proxy_set_header X-Forwarded-Host $http_host;\n";
+    config += "    proxy_set_header Authorization $http_authorization;\n";
+    config += "    proxy_set_header Upgrade $http_upgrade;\n";
+    config += "    proxy_set_header Connection \"Upgrade\";\n";
+    config += "    proxy_redirect off;\n";
     config += "    proxy_pass http://up_" + url + ";\n";
     config += "  }\n";
     config += "}\n\n";
