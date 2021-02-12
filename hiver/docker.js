@@ -38,9 +38,11 @@ export async function getAllServices () {
     if (vhost){
       let host = vhost.split('=')[1];
       if (!result[host]){ result[host] = [] }
-      service.Endpoint.VirtualIPs.forEach( vip => {
-        result[host].push( service.Spec.Name );
-      })
+      if (service.Endpoint.VirtualIPs) {
+        service.Endpoint.VirtualIPs.forEach( vip => {
+          result[host].push( service.Spec.Name );
+        })
+      }
     }
   })
   generateConfig(result);
